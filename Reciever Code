@@ -1,0 +1,36 @@
+from microbit import *
+import radio
+from neopixel import NeoPixel
+import music
+
+# Initialize the radio
+radio.on()
+radio.config(channel=69)  # Must match the channel on the transmitter
+
+# Initialize the NeoPixel
+num_pixels = 24# Change this to the number of NeoPixels in your strip
+np = NeoPixel(pin0, 24)
+
+def set_color(color):
+    for i in range(num_pixels):
+        np[i] = color
+    np.show()
+
+# Turn off the NeoPixel initially
+set_color((0, 255, 0))
+display.show(Image.HEART)
+
+
+while True:
+    message = radio.receive()  # Check for incoming messages
+    if message == "red":
+        
+        # Set NeoPixel to red
+        set_color((255, 0, 0))
+        music.play(music.POWER_DOWN)
+        display.show(Image.SKULL)
+        # Turn off the NeoPixel after a short delay
+        set_color((0, 255, 0))
+        # Red color
+        sleep(800)
+        display.show(Image.HEART)
