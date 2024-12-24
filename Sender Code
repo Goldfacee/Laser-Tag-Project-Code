@@ -1,0 +1,14 @@
+from microbit import *
+import radio
+
+# Turn on the radio
+radio.on()
+radio.config(channel=69)  # Choose a channel (both micro:bits must use the same channel)
+
+while True:
+    if button_a.was_pressed():
+        # Send a signal when button A is pressed
+        radio.send("red")
+        display.show("T")  # Show 'T' to indicate a message was transmitted
+        sleep(500)
+        display.clear()
